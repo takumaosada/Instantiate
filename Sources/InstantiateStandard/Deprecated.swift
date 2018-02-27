@@ -12,3 +12,10 @@ import Instantiate
 public func identifier<I: IdentifierType>(of type: NSObjectProtocol.Type) -> I {
     return I.from(type.className)
 }
+
+public extension NibType where Self: ViewController {
+    @available(*, unavailable, renamed: "nibSource.name")
+    public static var nibName: NibName { fatalError() }
+    @available(*, unavailable, renamed: "nibSource.bundle")
+    public static var nibBundle: Bundle { fatalError() }
+}

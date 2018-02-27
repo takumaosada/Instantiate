@@ -44,11 +44,14 @@ public extension StoryboardType {
 }
 
 public extension NibType {
-    public static var nibSource: (name: NibName, bundle: Bundle) {
-        return (name: .from(Self.self), bundle: Bundle(for: Self.self))
-    }
     public static var nib: Nib {
         return Nib(nibName: .from(self), bundle: Bundle(for: self))
+    }
+}
+
+public extension NibType where Self: ViewController {
+    public static var nibSource: (name: NibName, bundle: Bundle) {
+        return (name: .from(Self.self), bundle: Bundle(for: Self.self))
     }
 }
 
