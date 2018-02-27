@@ -9,46 +9,26 @@
 import Foundation
 
 #if os(iOS) || os(tvOS)
-    
     import UIKit
     public typealias Nib = UINib
     public typealias NibName = String
-    
+    public typealias View = UIView
 #endif
 
 #if os(macOS)
-    
     import AppKit
     public typealias Nib = NSNib
     public typealias NibName = NSNib.Name
-    
+    public typealias View = NSView
 #endif
 
-public protocol NibType {
-    static var nibName: NibName { get }
-    static var nibBundle: Bundle { get }
+public protocol NibType where Self: NSObject {
     static var nib: Nib { get }
-}
-
-public extension NibType where Self: NSObjectProtocol {
-    static var nibBundle: Bundle {
-        return Bundle(for: self)
-    }
-
-    static var nib: Nib {
-        #if os(iOS) || os(tvOS)
-            return Nib(nibName: nibName, bundle: nibBundle)
-        #endif
-        
-        #if os(macOS)
-            return Nib(nibNamed: nibName, bundle: nibBundle)!
-        #endif
-    }
 }
 
 /// Supports to associate View class and Nib.
 /// Notes: `bind` call after `awakeFromNib`.
-public protocol NibInstantiatable: Instantiatable, NibType {
+public protocol NibInstantiatable: Instantiatable, Injectable, NibType where Self: View {
     /// Index of `UINib.instantiate(withOwner:options:)`. Default is 0.
     static var instantiateIndex: Int { get }
 }
@@ -74,7 +54,7 @@ public extension NibInstantiatable where Self: NSObject {
 /// }
 /// #endif
 /// ```
-public protocol NibInstantiatableWrapper {
+public protocol NibInstantiatableWrapper where Self: View {
     associatedtype Wrapped: NibInstantiatable
     
     /// Wrapped NibInstantiatable View instance. It's safe after call `loadView`.
@@ -91,4 +71,3 @@ public extension NibInstantiatableWrapper where Wrapped.Dependency == Void {
         loadView(with: ())
     }
 }
-

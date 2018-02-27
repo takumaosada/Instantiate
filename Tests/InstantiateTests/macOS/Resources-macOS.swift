@@ -184,12 +184,21 @@ extension ViewController4: NSCollectionViewDelegateFlowLayout, NSCollectionViewD
     }
 }
 
-class NibViewController: NSViewController, NibInstantiatable {
-    
+class NibViewController: NSViewController, Instantiatable, NibType {
+    let value: String
     @IBOutlet weak var label: NSTextField!
     
-    func inject(_ dependency: String) {
-        label.stringValue = dependency
+    required init(with dependency: String) {
+        self.value = dependency
+        super.init(nibName: NibViewController.nibSource.name, bundle: NibViewController.nibSource.bundle)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        self.label.stringValue = value
     }
 }
 

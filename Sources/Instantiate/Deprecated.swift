@@ -20,6 +20,20 @@ public extension Injectable {
     }
 }
 
+public extension NibType {
+    @available(*, unavailable)
+    public static var nibName: NibName { fatalError() }
+    @available(*, unavailable)
+    public static var nibBundle: Bundle { fatalError() }
+}
+
+public extension StoryboardType {
+    @available(*, unavailable)
+    public static var storyboardName: StoryboardName { fatalError() }
+    @available(*, unavailable)
+    public static var storyboardBundle: Bundle { fatalError() }
+}
+
 #if os(iOS)
     
 import UIKit

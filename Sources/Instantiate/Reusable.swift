@@ -16,7 +16,7 @@ import Foundation
 #else
     public typealias UserInterfaceItemIdentifier = String
 #endif
-public protocol Reusable: Injectable {
+public protocol Reusable: Injectable where Self: NSObject {
     static var reusableIdentifier: UserInterfaceItemIdentifier { get }
 }
 

@@ -9,14 +9,14 @@
     
     import UIKit
     
-    public extension NibInstantiatable where Self: UIView {
+    public extension NibInstantiatable {
         public init(with dependency:Dependency) {
             self = Self.nib.instantiate(withOwner: nil, options: nil)[Self.instantiateIndex] as! Self
             self.inject(dependency)
         }
     }
     
-    public extension NibInstantiatableWrapper where Self: UIView, Wrapped: UIView {
+    public extension NibInstantiatableWrapper {
         var view: Wrapped {
             return self.subviews.first as! Wrapped
         }

@@ -206,12 +206,21 @@ extension ViewController4: UICollectionViewDelegateFlowLayout, UICollectionViewD
     }
 }
     
-class NibViewController: UIViewController, NibInstantiatable {
-    
+class NibViewController: UIViewController, Instantiatable, NibType {
+    let value: String
     @IBOutlet var label: UILabel!
     
-    func inject(_ dependency: String) {
-        label.text = dependency
+    required init(with dependency: String) {
+        self.value = dependency
+        super.init(nibName: NibViewController.nibSource.name, bundle: NibViewController.nibSource.bundle)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        self.label.text = value
     }
 }
 

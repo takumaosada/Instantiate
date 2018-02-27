@@ -9,7 +9,8 @@
 import Foundation
 
 /// `init(with:)` make user interface object with Nib/Storyboard and some parameter(s) using `Injectable` protocol.
-public protocol Instantiatable: Injectable {
+public protocol Instantiatable {
+    associatedtype Dependency = Void
     init(with dependency:Dependency)
 }
 

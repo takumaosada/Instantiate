@@ -9,7 +9,7 @@
     
     import UIKit
     
-    public extension StoryboardInstantiatable where Self: UIViewController {
+    public extension StoryboardInstantiatable {
         public init(with dependency:Dependency) {
             let storyboard = (Self.self as StoryboardType.Type).storyboard
             switch Self.instantiateSource {

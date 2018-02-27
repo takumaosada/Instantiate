@@ -25,46 +25,34 @@ extension IdentifierType {
     }
 }
 
-#if os(iOS) || os(tvOS)
-    
-    import UIKit
-
-    public extension StoryboardType where Self: NSObjectProtocol {
-        public static var storyboardName: StoryboardName {
-            return .from(self)
-        }
-    }
-
-    public extension NibType where Self: NSObjectProtocol {
-        public static var nibName: NibName {
-            return .from(self)
-        }
-    }
-    
-#endif
-
 #if os(macOS)
+    import AppKit
 
     extension NSStoryboard.Name: IdentifierType {}
-    extension NSNib.Name: IdentifierType {}
-
-    import AppKit
-    
-    public extension StoryboardType where Self: NSObjectProtocol {
-        public static var storyboardName: StoryboardName {
-            return .from(self)
+    public typealias NibName = NSNib.Name
+    extension NSNib {
+        convenience init(nibName: String, bundle: Bundle) {
+            self.init(nibNamed: .from(nibName), bundle: bundle)!
         }
     }
-    
-    public extension NibType where Self: NSObjectProtocol {
-        public static var nibName: NibName {
-            return .from(self)
-        }
-    }
-
 #endif
 
-public extension Reusable where Self: NSObjectProtocol {
+public extension StoryboardType {
+    public static var storyboard: Storyboard {
+        return Storyboard(name: .from(self), bundle: Bundle(for: self))
+    }
+}
+
+public extension NibType {
+    public static var nibSource: (name: NibName, bundle: Bundle) {
+        return (name: .from(Self.self), bundle: Bundle(for: Self.self))
+    }
+    public static var nib: Nib {
+        return Nib(nibName: .from(self), bundle: Bundle(for: self))
+    }
+}
+
+public extension Reusable {
     public static var reusableIdentifier: Instantiate.UserInterfaceItemIdentifier {
         return .from(self)
     }

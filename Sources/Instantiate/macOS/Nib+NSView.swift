@@ -9,7 +9,7 @@
     
     import AppKit
     
-    public extension NibInstantiatable where Self: NSView {
+    public extension NibInstantiatable {
         public init(with dependency: Dependency) {
             var objects: NSArray? = NSArray()
             Self.nib.instantiate(withOwner: nil, topLevelObjects: &objects)
@@ -18,7 +18,7 @@
         }
     }
     
-    public extension NibInstantiatableWrapper where Self: NSView, Wrapped: NSView {
+    public extension NibInstantiatableWrapper {
         var view: Wrapped {
             return self.subviews.first as! Wrapped
         }
