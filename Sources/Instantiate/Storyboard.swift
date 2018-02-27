@@ -41,7 +41,7 @@ public protocol StoryboardInstantiatable: Instantiatable, Injectable, Storyboard
     static var instantiateSource: InstantiateSource { get }
 }
 
-public extension StoryboardInstantiatable where Self: NSObject {
+public extension StoryboardInstantiatable {
     static var instantiateSource: InstantiateSource {
         return .initial
     }

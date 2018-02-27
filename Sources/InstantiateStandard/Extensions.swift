@@ -29,7 +29,7 @@ extension IdentifierType {
 import AppKit
 
 extension NSStoryboard.Name: IdentifierType {}
-public typealias NibName = NSNib.Name
+extension NSNib.Name: IdentifierType {}
 extension NSNib {
     convenience init(nibName: String, bundle: Bundle) {
         self.init(nibNamed: .from(nibName), bundle: bundle)!

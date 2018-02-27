@@ -33,7 +33,7 @@ public protocol NibInstantiatable: Instantiatable, Injectable, NibType where Sel
     static var instantiateIndex: Int { get }
 }
 
-public extension NibInstantiatable where Self: NSObject {
+public extension NibInstantiatable {
     static var instantiateIndex: Int {
         return 0
     }
