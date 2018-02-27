@@ -9,19 +9,19 @@
 import Foundation
 
 #if os(iOS) || os(tvOS)
-    import UIKit
-    public typealias Storyboard = UIStoryboard
-    public typealias StoryboardName = String
-    public typealias StoryboardSceneIdentifier = String
-    public typealias ViewController = UIViewController
+import UIKit
+public typealias Storyboard = UIStoryboard
+public typealias StoryboardName = String
+public typealias StoryboardSceneIdentifier = String
+public typealias ViewController = UIViewController
 #endif
 
 #if os(macOS)
-    import AppKit
-    public typealias Storyboard = NSStoryboard
-    public typealias StoryboardName = NSStoryboard.Name
-    public typealias StoryboardSceneIdentifier = NSStoryboard.SceneIdentifier
-    public typealias ViewController = NSViewController
+import AppKit
+public typealias Storyboard = NSStoryboard
+public typealias StoryboardName = NSStoryboard.Name
+public typealias StoryboardSceneIdentifier = NSStoryboard.SceneIdentifier
+public typealias ViewController = NSViewController
 #endif
 
 public protocol StoryboardType where Self: NSObject {
@@ -46,4 +46,3 @@ public extension StoryboardInstantiatable where Self: NSObject {
         return .initial
     }
 }
-

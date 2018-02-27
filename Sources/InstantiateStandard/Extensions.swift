@@ -26,15 +26,15 @@ extension IdentifierType {
 }
 
 #if os(macOS)
-    import AppKit
+import AppKit
 
-    extension NSStoryboard.Name: IdentifierType {}
-    public typealias NibName = NSNib.Name
-    extension NSNib {
-        convenience init(nibName: String, bundle: Bundle) {
-            self.init(nibNamed: .from(nibName), bundle: bundle)!
-        }
+extension NSStoryboard.Name: IdentifierType {}
+public typealias NibName = NSNib.Name
+extension NSNib {
+    convenience init(nibName: String, bundle: Bundle) {
+        self.init(nibNamed: .from(nibName), bundle: bundle)!
     }
+}
 #endif
 
 public extension StoryboardType {

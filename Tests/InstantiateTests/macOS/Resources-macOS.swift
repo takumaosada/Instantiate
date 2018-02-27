@@ -11,7 +11,7 @@
 import Instantiate
 import InstantiateStandard
 import AppKit
-    
+
 extension NSViewController: ViewLoadBeforeInject {
     
 }
@@ -40,7 +40,7 @@ class ViewController: NSViewController, StoryboardInstantiatable {
     func inject(_ dependency: String) {
         self.label.stringValue = dependency
     }
-        
+    
     @IBOutlet weak var label: NSTextField!
     
     override func viewDidLoad() {
@@ -113,7 +113,7 @@ extension ViewController3: NSTableViewDelegate, NSTableViewDataSource {
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         return TableViewCell.dequeue(from: tableView, with: dataSource.items[row])
     }
-
+    
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 44
     }
@@ -171,7 +171,7 @@ extension ViewController4: NSCollectionViewDelegateFlowLayout, NSCollectionViewD
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 100.0, height: 100.0)
     }
-
+    
     func collectionView(_ collectionView: NSCollectionView, layout collectionViewLayout: NSCollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 50.0)
     }
@@ -180,7 +180,7 @@ extension ViewController4: NSCollectionViewDelegateFlowLayout, NSCollectionViewD
         return CollectionViewCell.dequeue(from: collectionView, for: indexPath, with: dataSource[indexPath.section].items[indexPath.item])
     }
     func collectionView(_ collectionView: NSCollectionView, viewForSupplementaryElementOfKind kind: NSCollectionView.SupplementaryElementKind, at indexPath: IndexPath) -> NSView {
-            return CollectionReusableView.dequeue(from: collectionView, of: kind, for: indexPath, with: dataSource[indexPath.section].header)
+        return CollectionReusableView.dequeue(from: collectionView, of: kind, for: indexPath, with: dataSource[indexPath.section].header)
     }
 }
 

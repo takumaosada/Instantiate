@@ -9,17 +9,17 @@
 import Foundation
 
 #if os(iOS) || os(tvOS)
-    import UIKit
-    public typealias Nib = UINib
-    public typealias NibName = String
-    public typealias View = UIView
+import UIKit
+public typealias Nib = UINib
+public typealias NibName = String
+public typealias View = UIView
 #endif
 
 #if os(macOS)
-    import AppKit
-    public typealias Nib = NSNib
-    public typealias NibName = NSNib.Name
-    public typealias View = NSView
+import AppKit
+public typealias Nib = NSNib
+public typealias NibName = NSNib.Name
+public typealias View = NSView
 #endif
 
 public protocol NibType where Self: NSObject {

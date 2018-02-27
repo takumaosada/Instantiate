@@ -11,12 +11,11 @@ import Foundation
 /// Supports UITableView/UICollectionView reusable features.
 /// Implement your UITableViewCell/UICollectionViewCell subclass.
 #if os(macOS)
-    import AppKit
-    public typealias UserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier
+import AppKit
+public typealias UserInterfaceItemIdentifier = NSUserInterfaceItemIdentifier
 #else
-    public typealias UserInterfaceItemIdentifier = String
+public typealias UserInterfaceItemIdentifier = String
 #endif
 public protocol Reusable: Injectable where Self: NSObject {
     static var reusableIdentifier: UserInterfaceItemIdentifier { get }
 }
-

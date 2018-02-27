@@ -7,7 +7,7 @@
 //
 
 #if os(tvOS)
-    
+
 import Instantiate
 import InstantiateStandard
 
@@ -15,8 +15,8 @@ import UIKit
 
 extension UIViewController: ViewLoadBeforeInject {
     
-}    
-    
+}
+
 class View: UIView, NibInstantiatable {
     typealias Dependency = Int
     var parameter: Int!
@@ -41,7 +41,7 @@ class ViewController: UIViewController, StoryboardInstantiatable {
     func inject(_ dependency: String) {
         self.label.text = dependency
     }
-        
+    
     @IBOutlet weak var label: UILabel!
     
     override func viewDidLoad() {
@@ -106,7 +106,7 @@ class ViewController3: UIViewController, StoryboardInstantiatable {
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.registerNib(type: TableViewCell.self)
-            tableView.registerNib(type: TableViewHeader.self) 
+            tableView.registerNib(type: TableViewHeader.self)
         }
     }
     
@@ -120,7 +120,7 @@ extension ViewController3: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return TableViewHeader.dequeue(from: tableView, with: dataSource.header)
     }
@@ -136,7 +136,7 @@ extension ViewController3: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 44
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
@@ -192,7 +192,7 @@ extension ViewController4: UICollectionViewDelegateFlowLayout, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 100.0, height: 100.0)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 50.0)
     }

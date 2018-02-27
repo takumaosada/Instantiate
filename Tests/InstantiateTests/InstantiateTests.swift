@@ -7,22 +7,22 @@
 //
 
 #if os(iOS) || os(tvOS)
-    import UIKit
+import UIKit
 #endif
 #if os(macOS)
-    import AppKit
-    extension NSTextField {
-        var text: String? {
-            return stringValue
-        }
+import AppKit
+extension NSTextField {
+    var text: String? {
+        return stringValue
     }
+}
 #endif
 #if swift(>=4.1)
 #else
 extension Array {
-    func compactMap<T>(_ f: (Element) -> T?) -> [T] {
-        return flatMap(f)
-    }
+func compactMap<T>(_ f: (Element) -> T?) -> [T] {
+return flatMap(f)
+}
 }
 #endif
 
@@ -61,95 +61,95 @@ class InstantiateTests: XCTestCase {
     func testReusableForTableView() {
         let vc3 = ViewController3(with: (header: "VC3", items: [1, 2, 3, 4]))
         #if os(iOS) || os(tvOS)
-            let tableCells: [TableViewCell] =
-                [
-                    vc3.tableView.cellForRow(at: IndexPath(row: 0, section: 0)),
-                    vc3.tableView.cellForRow(at: IndexPath(row: 1, section: 0)),
-                    vc3.tableView.cellForRow(at: IndexPath(row: 2, section: 0)),
-                    vc3.tableView.cellForRow(at: IndexPath(row: 3, section: 0))
-                ]
-                .compactMap { $0 as? TableViewCell }
+        let tableCells: [TableViewCell] =
+            [
+                vc3.tableView.cellForRow(at: IndexPath(row: 0, section: 0)),
+                vc3.tableView.cellForRow(at: IndexPath(row: 1, section: 0)),
+                vc3.tableView.cellForRow(at: IndexPath(row: 2, section: 0)),
+                vc3.tableView.cellForRow(at: IndexPath(row: 3, section: 0))
+            ]
+            .compactMap { $0 as? TableViewCell }
         #endif
         #if os(macOS)
-            let tableCells: [TableViewCell] =
-                [
-                    vc3.tableView.view(atColumn: 0, row: 0, makeIfNecessary: true),
-                    vc3.tableView.view(atColumn: 0, row: 1, makeIfNecessary: true),
-                    vc3.tableView.view(atColumn: 0, row: 2, makeIfNecessary: true),
-                    vc3.tableView.view(atColumn: 0, row: 3, makeIfNecessary: true)
-                ]
-                .compactMap { $0 as? TableViewCell }
+        let tableCells: [TableViewCell] =
+            [
+                vc3.tableView.view(atColumn: 0, row: 0, makeIfNecessary: true),
+                vc3.tableView.view(atColumn: 0, row: 1, makeIfNecessary: true),
+                vc3.tableView.view(atColumn: 0, row: 2, makeIfNecessary: true),
+                vc3.tableView.view(atColumn: 0, row: 3, makeIfNecessary: true)
+            ]
+            .compactMap { $0 as? TableViewCell }
         #endif
         XCTAssertEqual(tableCells[0].label.text, "1")
         XCTAssertEqual(tableCells[1].label.text, "2")
         XCTAssertEqual(tableCells[2].label.text, "3")
         XCTAssertEqual(tableCells[3].label.text, "4")
         #if os(iOS) || os(tvOS)
-            let tableHeader: TableViewHeader = vc3.tableView.headerView(forSection: 0) as! TableViewHeader
-            XCTAssertEqual(tableHeader.label.text, "VC3")
+        let tableHeader: TableViewHeader = vc3.tableView.headerView(forSection: 0) as! TableViewHeader
+        XCTAssertEqual(tableHeader.label.text, "VC3")
         #endif
     }
     
     func testReusableForCollectionView() {
         let vc4 = ViewController4(with: [(header: "A", items: ["a", "b", "c", "d"]), (header: "B", items: ["x", "y", "z"])])
         #if os(iOS) || os(tvOS)
-            vc4.collectionView.layoutIfNeeded()
+        vc4.collectionView.layoutIfNeeded()
         #endif
         #if os(macOS)
-            vc4.collectionView.layout()
+        vc4.collectionView.layout()
         #endif
-
+        
         #if os(iOS) || os(tvOS)
-            let headers: [CollectionReusableView] =
-                [
-                    vc4.collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: 0)),
-                    vc4.collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: 1))
-                ]
-                .compactMap { $0 as? CollectionReusableView }
+        let headers: [CollectionReusableView] =
+            [
+                vc4.collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: 0)),
+                vc4.collectionView.supplementaryView(forElementKind: UICollectionElementKindSectionHeader, at: IndexPath(item: 0, section: 1))
+            ]
+            .compactMap { $0 as? CollectionReusableView }
         #endif
         #if os(macOS)
-            let headers: [CollectionReusableView] =
-                [
-                    vc4.collectionView.supplementaryView(forElementKind: .sectionHeader, at: IndexPath(item: 0, section: 0)),
-                    vc4.collectionView.supplementaryView(forElementKind: .sectionHeader, at: IndexPath(item: 0, section: 1))
-                ]
-                .compactMap { $0 as? CollectionReusableView }
+        let headers: [CollectionReusableView] =
+            [
+                vc4.collectionView.supplementaryView(forElementKind: .sectionHeader, at: IndexPath(item: 0, section: 0)),
+                vc4.collectionView.supplementaryView(forElementKind: .sectionHeader, at: IndexPath(item: 0, section: 1))
+            ]
+            .compactMap { $0 as? CollectionReusableView }
         #endif
         #if os(iOS) || os(tvOS)
-            let collectionCells =
+        let collectionCells =
+            [
                 [
-                    [
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)),
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 1, section: 0)),
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 2, section: 0)),
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 3, section: 0))
-                    ]
-                    .compactMap { $0 as? CollectionViewCell },
-                    [
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 0, section: 1)),
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 1, section: 1)),
-                        vc4.collectionView.cellForItem(at: IndexPath(item: 2, section: 1))
-                    ]
-                    .compactMap { $0 as? CollectionViewCell },
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 0, section: 0)),
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 1, section: 0)),
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 2, section: 0)),
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 3, section: 0))
                 ]
+                .compactMap { $0 as? CollectionViewCell },
+                [
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 0, section: 1)),
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 1, section: 1)),
+                    vc4.collectionView.cellForItem(at: IndexPath(item: 2, section: 1))
+                ]
+                .compactMap { $0 as? CollectionViewCell },
+            ]
         #endif
         #if os(macOS)
-            let collectionCells =
+        let collectionCells =
+            [
                 [
-                    [
-                        vc4.collectionView.item(at: IndexPath(item: 0, section: 0)),
-                        vc4.collectionView.item(at: IndexPath(item: 1, section: 0)),
-                        vc4.collectionView.item(at: IndexPath(item: 2, section: 0)),
-                        vc4.collectionView.item(at: IndexPath(item: 3, section: 0))
-                    ]
-                    .compactMap { $0 as? CollectionViewCell },
-                    [
-                        vc4.collectionView.item(at: IndexPath(item: 0, section: 1)),
-                        vc4.collectionView.item(at: IndexPath(item: 1, section: 1)),
-                        vc4.collectionView.item(at: IndexPath(item: 2, section: 1))
-                    ]
-                    .compactMap { $0 as? CollectionViewCell },
+                    vc4.collectionView.item(at: IndexPath(item: 0, section: 0)),
+                    vc4.collectionView.item(at: IndexPath(item: 1, section: 0)),
+                    vc4.collectionView.item(at: IndexPath(item: 2, section: 0)),
+                    vc4.collectionView.item(at: IndexPath(item: 3, section: 0))
                 ]
+                .compactMap { $0 as? CollectionViewCell },
+                [
+                    vc4.collectionView.item(at: IndexPath(item: 0, section: 1)),
+                    vc4.collectionView.item(at: IndexPath(item: 1, section: 1)),
+                    vc4.collectionView.item(at: IndexPath(item: 2, section: 1))
+                ]
+                .compactMap { $0 as? CollectionViewCell },
+            ]
         #endif
         XCTAssertEqual(headers[0].label.text, "A")
         XCTAssertEqual(headers[1].label.text, "B")
